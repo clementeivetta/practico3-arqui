@@ -33,7 +33,8 @@ module maindec(
     output logic MemWrite,
     output logic Branch,
     output logic [1:0] ALUOp,
-    output logic Exc 
+    output logic Exc, 
+    output logic BranchR
 );
     
     localparam [10:0] LDUR_OP = 11'b111_1100_0010;
@@ -44,7 +45,7 @@ module maindec(
     localparam [10:0] SUB_OP  = 11'b110_0101_1000;
     localparam [10:0] AND_OP  = 11'b100_0101_0000;
     localparam [10:0] ORR_OP  = 11'b101_0101_0000;
-    
+    localparam [10:0] BR_OP   = 11'b11010110000;
     logic NotAnInstr;
     
     always_comb begin 
@@ -66,7 +67,8 @@ module maindec(
                 ADD_OP,
                 SUB_OP,
                 AND_OP,
-                ORR_OP: begin
+                ORR_OP,
+                BR_OP: begin
                     RegWrite = 1'b1;
                     ALUOp    = 2'b10;
                 end
